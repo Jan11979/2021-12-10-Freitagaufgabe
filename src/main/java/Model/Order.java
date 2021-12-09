@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    String sName;
-    public int iID;
+    private String sName;
+    private int iID;
     public List<Integer> productListe;
 
     public Order(){
@@ -14,6 +14,9 @@ public class Order {
 
     public int getID() {
         return iID;
+    }
+    public void setID(int newID) {
+        iID = newID;
     }
 
     public String getName() {

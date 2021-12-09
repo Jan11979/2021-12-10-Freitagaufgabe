@@ -30,11 +30,13 @@ public class OrderRepo {
     public int addOrder(Order order) {
         if (order == null)
             return 0;
+        if (order.getName() == null)
+            return 0;
 
         iLastOrderID += 1;
-        order.iID = iLastOrderID;
+        order.setID( iLastOrderID );
         listOrder.add(order);
-        return order.iID;
+        return order.getID();
     }
 
     public String getListAllOrders() {

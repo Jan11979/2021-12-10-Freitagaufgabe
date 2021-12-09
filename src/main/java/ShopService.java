@@ -16,23 +16,30 @@ public class ShopService {
     }
 
 
-
     public void getOrder(int iID) {
         Order order = orderRepo.getOrder(iID);
-        if( order == null )
+        if (order == null)
             return;
         printProduct(order);
     }
 
 
     public int addOrder(String sName, List<Integer> productListe) {
-
-        Order order = new Order();
-        order.setName( sName );
-        for (Integer lObject : productListe) {
-            order.addProduct(lObject);
-        }
-        return orderRepo.addOrder(order);
+        try {
+            Order order = new Order();
+            order.setName(sName);
+            for (Integer lObject : productListe) {
+                if (prodRepo.getIProductExist(lObject) == false)
+                    throw new IllegalArgumentException("Produkt existiert nicht");
+                order.addProduct(lObject);
+            }
+            return orderRepo.addOrder(order);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Produkt existiert nicht");
+            return 0;
+        }/* catch (Exception e) {
+            return 0;
+        }*/
     }
 
     public void listOrders() {
@@ -55,6 +62,7 @@ public class ShopService {
             printProduct(prodRepo.getIProduct(lObject));
         }
     }
+
     public void printProduct(IProduct iProd) {
         if (iProd == null)
             return;

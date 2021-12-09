@@ -19,8 +19,22 @@ public class ProductRepo {
         if (product == null)
             return false;
 
+        for (IProduct lObject : listProducts) {
+            IProduct tProduct = (IProduct) lObject;
+            if (tProduct.getID() == product.getID())
+                return false;
+            if (tProduct.getName() == product.getName())
+                return false;
+        }
         listProducts.add(product);
         return true;
+    }
+
+    public boolean getIProductExist(int iD) {
+        for (IProduct lObject : listProducts)
+            if (lObject.getID() == iD)
+                return true;
+        return false;
     }
 
     public IProduct getIProduct(int iD) {
@@ -28,7 +42,7 @@ public class ProductRepo {
 
         for (IProduct lObject : listProducts) {
             IProduct tProduct = (IProduct) lObject;
-            if(tProduct.getID() == iD)
+            if (tProduct.getID() == iD)
                 return tProduct;
         }
         return product;
